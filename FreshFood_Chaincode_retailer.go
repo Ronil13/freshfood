@@ -19,8 +19,8 @@ type SimpleChaincode struct {
  
 type retailer struct {
 	ObjectType string        `json:"docType"` //field for couchdb
-	Invno      string          `json:"invno"`      
-	Ret_regno  string          `json:"ret_regno"`
+	invno      string          `json:"invno"`      
+	ret_regno  string          `json:"ret_regno"`
 	addr     string               `json:"addr"`    
 }
 // ============================================================================================================================
@@ -81,16 +81,16 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 		return nil, errors.New("Incorrect number of arguments. Expecting 2. name of the key and value to set")
 	}
                    
-                   var ret Retailer
+                   var ret retailer
                    ret.ObjectType  = "ret_type"
-                   ret.Invno  = args[0]
-                   ret.Ret_Regno  = args[1]
+                   ret.invno  = args[0]
+                   ret.ret_regno  = args[1]
                    ret.addr = args[2]
                    
 
                   retAsBytes,_  :=  json.Marshal(ret) 
 
-                   err = stub.PutState(ret.Invno, retAsBytes)
+                   err = stub.PutState(ret.invno, retAsBytes)
 
                    if err != nil {
 			
